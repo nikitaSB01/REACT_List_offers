@@ -31,12 +31,9 @@ const Listing: React.FC<ListingProps> = ({ items }) => {
                 : item.title}
             </p>
             <p className="item-price">
-              {item.currency_code === "USD" && `$${item.price}`}
-              {item.currency_code === "EUR" && `€${item.price}`}
-              {item.currency_code !== "USD" &&
-                item.currency_code !== "EUR" &&
-                `${item.currency_code} ${item.price}`}
+              {formatPrice(item.currency_code, parseFloat(item.price))}
             </p>
+
             <p
               className={`item-quantity ${
                 item.quantity <= 10
@@ -53,6 +50,19 @@ const Listing: React.FC<ListingProps> = ({ items }) => {
       ))}
     </div>
   );
+};
+
+const formatPrice = (currencyCode: string, price: string | number): string => {
+  const numericPrice = typeof price === "string" ? parseFloat(price) : price;
+
+  switch (currencyCode) {
+    case "USD":
+      return `$${numericPrice}`;
+    case "EUR":
+      return `€${numericPrice}`;
+    default:
+      return `${currencyCode} ${numericPrice}`;
+  }
 };
 
 export default Listing;
