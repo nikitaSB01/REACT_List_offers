@@ -35,7 +35,7 @@ const Listing: React.FC<ListingProps> = ({ items }) => {
               {item.currency_code === "EUR" && `€${item.price}`}
               {item.currency_code !== "USD" &&
                 item.currency_code !== "EUR" &&
-                `${item.price} ${item.currency_code}`}
+                `${item.currency_code} ${item.price}`}
             </p>
             <p
               className={`item-quantity ${
